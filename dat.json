@@ -1,0 +1,5 @@
+{
+    "token": "DISCORD_TOKEN",
+    "client": "CLIENT_CHANNEL_ID",
+    "manager": "MANAGER_CHANNEL_ID"
+}
