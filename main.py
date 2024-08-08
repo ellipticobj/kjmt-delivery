@@ -1,4 +1,4 @@
-import discord
+import discord, fun
 
-clientchannel = ""
-managerchannel = ""
+bot = discord.Client()
+
