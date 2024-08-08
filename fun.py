@@ -1,6 +1,6 @@
 import json
 
-def readdatadict(filepath):
+def fetchdata(filepath):
     '''
     made to read data from dat.json, potentially more uses in the future
     '''
@@ -9,7 +9,7 @@ def readdatadict(filepath):
     print(f"data read from file:\ndata: {data}\n file: ./{filepath}")
     return data
 
-def dumpdatadict(filepath, data):
+def dumpdata(filepath, data):
     '''
     made to allow users to change things like the client channel id or manager channel id, potentially more uses in the future
     '''
@@ -22,16 +22,31 @@ def updateclientid(filepath, updatedclientid):
     '''
     allows users to update their client channel id
     '''
-    data = readdatadict(filepath)
+    data = fetchdata(filepath)
     data["client"] = updatedclientid
-    return dumpdatadict(filepath, data)
+    return dumpdata(filepath, data)
 
 def updatemanagerid(filepath, updatedmanagerid):
     '''
     allows users to update their manager channel id
     '''
-    data = readdatadict(filepath)
+    data = fetchdata(filepath)
     data["manager"] = updatedmanagerid
-    return dumpdatadict(filepath, data)
+    return dumpdata(filepath, data)
+
+def moddatabyid(filepath, dataid, newd):
+    '''
+    allows user to modify data by its identifier, here just in case
+    might change other dump functions to this
+    '''
+    data = fetchdata(filepath)
+    try:
+        oldd = data[dataid]
+        data[dataid] = newd
+    except Exception as e:
+        return e
+    print(f"data modified by id\ndata id: {dataid}\nchanges: {oldd} -> {newd}")
 
 # TODO make something to read token, ids
+def fetchtoken(filepath):
+    data = fetchdata
