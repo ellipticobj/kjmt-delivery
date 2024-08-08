@@ -1,5 +1,5 @@
 {
-    "token": "DISCORD_TOKEN",
+    "token": "DISCORD_ID",
     "client": "CLIENT_CHANNEL_ID",
     "manager": "MANAGER_CHANNEL_ID"
 }
