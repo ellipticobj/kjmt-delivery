@@ -1,6 +1,6 @@
 import json
 
-def fetchdata(filepath):
+def fetchdata(filepath: str):
     '''
     made to read data from dat.json, potentially more uses in the future
     '''
@@ -9,7 +9,7 @@ def fetchdata(filepath):
     print(f"data read from file:\ndata: {data}\n file: ./{filepath}")
     return data
 
-def fetchdataid(filepath, id):
+def fetchdatabyid(filepath: str, id: str):
     '''
     made to read data from dat.json, potentially more uses in the future
     '''
@@ -18,7 +18,7 @@ def fetchdataid(filepath, id):
     print(f"data read from file by id:data: {data}\nid: {id}\ndata at id: {data[id]}\n file: ./{filepath}")
     return data[id]
 
-def dumpdata(filepath, data):
+def dumpdata(filepath: str, data):
     '''
     made to allow users to change things like the client channel id or manager channel id, potentially more uses in the future
     '''
@@ -35,7 +35,7 @@ def updateclientid(filepath, updatedclientid):
     data["client"] = updatedclientid
     return dumpdata(filepath, data)
 
-def updatemanagerid(filepath, updatedmanagerid):
+def updatemanagerid(filepath: str, updatedmanagerid):
     '''
     allows users to update their manager channel id
     '''
@@ -43,7 +43,7 @@ def updatemanagerid(filepath, updatedmanagerid):
     data["manager"] = updatedmanagerid
     return dumpdata(filepath, data)
 
-def moddatabyid(filepath, dataid, newd):
+def moddatabyid(filepath: str, dataid, newd):
     '''
     allows user to modify data by its identifier, here just in case
     might change other dump functions to this
