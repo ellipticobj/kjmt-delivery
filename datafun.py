@@ -9,6 +9,15 @@ def fetchdata(filepath):
     print(f"data read from file:\ndata: {data}\n file: ./{filepath}")
     return data
 
+def fetchdataid(filepath, id):
+    '''
+    made to read data from dat.json, potentially more uses in the future
+    '''
+    with open(filepath, 'r') as file:
+        data = json.load(file)
+    print(f"data read from file by id:data: {data}\nid: {id}\ndata at id: {data[id]}\n file: ./{filepath}")
+    return data[id]
+
 def dumpdata(filepath, data):
     '''
     made to allow users to change things like the client channel id or manager channel id, potentially more uses in the future
@@ -46,7 +55,3 @@ def moddatabyid(filepath, dataid, newd):
     except Exception as e:
         return e
     print(f"data modified by id\ndata id: {dataid}\nchanges: {oldd} -> {newd}")
-
-# TODO make something to read token, ids
-def fetchtoken(filepath):
-    data = fetchdata

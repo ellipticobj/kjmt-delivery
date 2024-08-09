@@ -1,2 +1,2 @@
-import os, fun
+import os, datafun, sys
 # manager!!

@@ -1,4 +1,4 @@
-import discord, fun
+import discord, datafun
 
 bot = discord.Client()
 
