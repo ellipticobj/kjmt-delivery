@@ -27,4 +27,4 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
 # starting the bot itself
-client.run(datafun.fetchdataid("dat.json", "token"))
+client.run(datafun.fetchdatabyid("dat.json", "token"))
