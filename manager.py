@@ -1,2 +1,2 @@
-import os, datafun, sys
+import os, datafun, sys, pycord
 # manager!!

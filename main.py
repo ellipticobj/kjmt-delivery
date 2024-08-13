@@ -1,7 +1,7 @@
-import discord, datafun
+import pycord, datafun
 
 # setting discord bot intents (perms)
-intents = discord.Intents.default()
+intents = pycord.Intents.default()
 intents.message_content = True
 
 
@@ -11,7 +11,7 @@ log = datafun.fetchdatabyid("dat.json", "log")
 settings = datafun.fetchdatabyid("dat.json", "dev")
 
 # bot yay
-client = discord.Client(intents=intents)
+client = pycord.Client(intents=intents)
 
 
 @client.event
