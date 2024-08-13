@@ -1,4 +1,6 @@
 import discord, datafun
+import clientcmds as c 
+import mngercmds as m
 
 
 print("init sequence beginning")
@@ -15,7 +17,6 @@ client = discord.Bot()
 async def comingsoon(ctx):
     await ctx.respond("coming soon!")
 
-
 @client.slash_command(name="test", guild_id=guild)
 async def test(ctx):
     await ctx.respond("slash commands working!")
@@ -27,14 +28,6 @@ async def order(ctx):
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
 
 # starting the bot itself
 client.run(datafun.fetchdatabyid("dat.json", "token"))
