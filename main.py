@@ -1,25 +1,25 @@
-import pycord, datafun
-
-# setting discord bot intents (perms)
-intents = pycord.Intents.default()
-intents.message_content = True
-
+import discord, datafun
 
 client = datafun.fetchdatabyid("dat.json", "client")
 manager = datafun.fetchdatabyid("dat.json", "manager")
 log = datafun.fetchdatabyid("dat.json", "log")
 settings = datafun.fetchdatabyid("dat.json", "dev")
+guild = datafun.fetchdatabyid("dat.json", "guild")
 
 # bot yay
-client = pycord.ext.commands.Bot()
+client = discord.Bot()
 
-@client.slash_command(
-    name="test",
-    guild_id=datafun.fetchdatabyid("dat.json", "guild")
-)
+async def comingsoon(ctx):
+    await ctx.respond("coming soon!")
 
+
+@client.slash_command(name="test", guild_id=guild)
 async def test(ctx):
     await ctx.respond("slash commands working!")
+
+@client.slash_command(name="order", guild_id=guild)
+async def order(ctx):
+    comingsoon()
 
 @client.event
 async def on_ready():
