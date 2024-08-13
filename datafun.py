@@ -1,12 +1,15 @@
 import json
 
+debug = False
+
 def fetchdata(filepath: str):
     '''
     made to read data from dat.json, potentially more uses in the future
     '''
     with open(filepath, 'r') as file:
         data = json.load(file)
-    print(f"data read from file:\ndata: {data}\n file: ./{filepath}")
+    if debug: print(f"data read from file: \ndata: {data}\n file: ./{filepath}")
+    else: print("data read")
     return data
 
 def fetchdatabyid(filepath: str, id: str):
@@ -15,7 +18,8 @@ def fetchdatabyid(filepath: str, id: str):
     '''
     with open(filepath, 'r') as file:
         data = json.load(file)
-    print(f"data read from file by id:data: {data}\nid: {id}\ndata at id: {data[id]}\n file: ./{filepath}")
+    if debug: print(f"data read from file by id: data: {data}\nid: {id}\ndata at id: {data[id]}\n file: ./{filepath}")
+    else: print("data read by id")
     return data[id]
 
 def dumpdata(filepath: str, data):
@@ -24,7 +28,8 @@ def dumpdata(filepath: str, data):
     '''
     with open(filepath, 'w') as file:
         json.dump(data, file, indent=4)
-    print(f"data dumped to file\ndata: {data}\nfile: ./{filepath}")
+    if debug: print(f"data dumped to file\ndata: {data}\nfile: ./{filepath}")
+    else: print(f"data dumped to {file}")
     return 0
 
 def updateclientid(filepath, updatedclientid):
@@ -54,4 +59,5 @@ def moddatabyid(filepath: str, dataid, newd):
         data[dataid] = newd
     except Exception as e:
         return e
-    print(f"data modified by id\ndata id: {dataid}\nchanges: {oldd} -> {newd}")
+    if debug: print(f"data modified by id\ndata id: {dataid}\nchanges: {oldd} -> {newd}")
+    else: print("data modified by id")
