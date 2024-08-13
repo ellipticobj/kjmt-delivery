@@ -1,2 +1,4 @@
 *.json
 dat.json
+/__pycache__
+/__pycache__/*

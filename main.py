@@ -1,10 +1,13 @@
 import discord, datafun
 
+
+print("init sequence beginning")
 client = datafun.fetchdatabyid("dat.json", "client")
 manager = datafun.fetchdatabyid("dat.json", "manager")
 log = datafun.fetchdatabyid("dat.json", "log")
 settings = datafun.fetchdatabyid("dat.json", "dev")
 guild = datafun.fetchdatabyid("dat.json", "guild")
+
 
 # bot yay
 client = discord.Bot()
