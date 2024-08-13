@@ -21,3 +21,18 @@ This app should:
 
 Due to our limited resources, we will be demonstrating the backend of our project in the form of this discord bot, which is made with python. 
 
+## Using the bot
+just download the files and run `pip install py-cord` (use `pip3` instead if `pip` fails)
+this should work with all python versions but python 3.8 and above is recommended
+
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
