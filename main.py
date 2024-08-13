@@ -1,7 +1,7 @@
-import discord, datafun
+import pycord, datafun
 
 # setting discord bot intents (perms)
-intents = discord.Intents.default()
+intents = pycord.Intents.default()
 intents.message_content = True
 
 
@@ -11,8 +11,15 @@ log = datafun.fetchdatabyid("dat.json", "log")
 settings = datafun.fetchdatabyid("dat.json", "dev")
 
 # bot yay
-client = discord.Client(intents=intents)
+client = pycord.ext.commands.Bot()
 
+@client.slash_command(
+    name="test",
+    guild_id=datafun.fetchdatabyid("dat.json", "guild")
+)
+
+async def test(ctx):
+    await ctx.respond("slash commands working!")
 
 @client.event
 async def on_ready():
