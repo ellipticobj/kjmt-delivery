@@ -2,4 +2,22 @@
 a demonstration of the backend for my computing coursework in the form of a discord bot
 coded in python
 
-made by team fajnig
+## Problem:
+KJMT is a company that owns a restaurent chain.
+
+Recently, he noticed that the restaurants have been having difficulty answering and organizing their deliveries. Their way of accepting orders is very messy. 
+
+Currently, they have to be called by the customers individually and take down the orders manually. This can be very confusing and messy, and can cause a lot of problems if they wrote something down wrongly or forgot something. It can also deter some customers from wanting to order delivery as it might be very time consuming for them, which is sometimes unfavorable.
+
+## Our solution:
+We would like to create a food delivery app for KJMT.
+
+This app should:
+- allow users to choose what food they want, how much of it they want, and include any special requests. 
+- allow users to save their address
+- allow users to choose if they want to pay online or pay in person
+- allow users to sign into an account, which can help us implement things like discount codes, loyalty programs and more
+- allow users to order food even without an account
+
+Due to our limited resources, we will be demonstrating the backend of our project in the form of this discord bot, which is made with python. 
+
