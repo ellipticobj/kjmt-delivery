@@ -13,7 +13,7 @@ log = int(datafun.fetchdatabyid("channels.json", "log"))
 
 # starting bot
 client = discord.Bot()
-log.send("bot starting...")
+log.message.send("bot starting...")
 
 # loading cogs
 cogs_list = [
@@ -25,16 +25,16 @@ for cog in cogs_list:
     try:
         client.load_extension(f'cogs.{cog}')
     except Exception as e:
-        log.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
-    log.send("loaded cogs.{cog}")
-log.send("loaded all cogs")
+        log.message.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+    log.message.send("loaded cogs.{cog}")
+log.message.send("loaded all cogs")
 
 async def comingsoon(ctx):
     await ctx.respond("coming soon!")
     
 @client.event
 async def on_ready():
-    log.send("init sequence successful!! :3")
+    log.message.send("init sequence successful!! :3")
 
 @client.slash_command(name="test", guild_id=guild)
 async def test(ctx):

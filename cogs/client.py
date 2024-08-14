@@ -1,6 +1,7 @@
 import discord
+from discord.ext import commands
 
-class Client(discord.ext.commands.Cog):
+class Client(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
