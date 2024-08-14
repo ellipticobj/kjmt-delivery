@@ -19,7 +19,7 @@ log.send("bot starting...")
 cogs_list = [
     'client',
     'manager'
-]
+] 
 
 for cog in cogs_list:
     try:
