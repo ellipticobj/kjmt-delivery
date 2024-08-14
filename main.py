@@ -4,12 +4,12 @@ import cogs.manager as m
 
 
 print("init sequence beginning")
-client = int(datafun.fetchdatabyid("dat.json", "client"))
-manager = int(datafun.fetchdatabyid("dat.json", "manager"))
-log = int(datafun.fetchdatabyid("dat.json", "log"))
-settings = int(datafun.fetchdatabyid("dat.json", "dev"))
-guild = int(datafun.fetchdatabyid("dat.json", "guild"))
-log = int(datafun.fetchdatabyid("dat.json", "log"))
+client = int(datafun.fetchdatabyid("channels.json", "client"))
+manager = int(datafun.fetchdatabyid("channels.json", "manager"))
+log = int(datafun.fetchdatabyid("channels.json", "log"))
+settings = int(datafun.fetchdatabyid("channels.json", "dev"))
+guild = int(datafun.fetchdatabyid("channels.json", "guild"))
+log = int(datafun.fetchdatabyid("channels.json", "log"))
 
 # starting bot
 client = discord.Bot()
