@@ -23,10 +23,11 @@ cogs_list = [
 
 for cog in cogs_list:
     try:
+        log.message.send("attempting to load cogs.{cog}...")
         client.load_extension(f'cogs.{cog}')
+        log.message.send("loaded cogs.{cog}")
     except Exception as e:
         log.message.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
-    log.message.send("loaded cogs.{cog}")
 log.message.send("loaded all cogs")
 
 async def comingsoon(ctx):
@@ -35,6 +36,45 @@ async def comingsoon(ctx):
 @client.event
 async def on_ready():
     log.message.send("init sequence successful!! :3")
+    
+load = discord.SlashCommandGroup("load", "admin command for loading cogs")
+unload = load.create_subgroup("unload", "admin command for unloading cogs")
+
+@load.command()
+async def manager(ctx):
+    try:
+        log.message.send("attempting to load cogs.manager...")
+        client.load_extension(f'cogs.manager')
+        log.message.send("loaded cogs.manager")
+    except Exception as e:
+        log.message.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+    
+@load.command()
+async def client(ctx):
+    try:
+        log.message.send("attempting to load cogs.client...")
+        client.load_extension(f'cogs.client')
+        log.message.send("loaded cogs.client")
+    except Exception as e:
+        log.message.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+    
+@unload.command()
+async def manager(ctx):
+    try:
+        log.message.send("attempting to unload cogs.manager...")
+        client.unload_extension(f'cogs.manager')
+        log.message.send("unloaded cogs.manager")
+    except Exception as e:
+        log.message.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+
+@unload.command()
+async def client(ctx):
+    try:
+        log.message.send("attempting to unload cogs.client...")
+        client.unload_extension(f'cogs.client')
+        log.message.send("unloaded cogs.client")
+    except Exception as e:
+        log.message.send("ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
 
 @client.slash_command(name="test", guild_id=guild)
 async def test(ctx):
