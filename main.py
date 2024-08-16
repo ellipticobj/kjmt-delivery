@@ -31,7 +31,7 @@ async def comingsoon(ctx):
     
 @bot.event
 async def on_ready():
-    print("init sequence complete!! :3")
+    print("bot is ready!! :3")
     
 
 @bot.slash_command(name="test")
