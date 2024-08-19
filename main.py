@@ -3,13 +3,14 @@ import cogs.client as c
 import cogs.manager as m
 
 
+# starting bot
+intents = discord.Intents.all()
+bot = discord.Bot(intents=intents)
+
 print("init sequence beginning")
 client = int(datafun.fetchdatabyid("channels.json", "client"))
 manager = int(datafun.fetchdatabyid("channels.json", "manager"))
 settings = int(datafun.fetchdatabyid("channels.json", "dev"))
-
-# starting bot
-bot = discord.Bot()
 
 # loading cogs
 cogs_list = [
