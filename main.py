@@ -6,6 +6,8 @@ import cogs.manager as m
 # starting bot
 intents = discord.Intents.all()
 bot = discord.Bot(intents=intents)
+log = bot.get_channel(1271400775611846656)
+log.send("test message")
 
 print("init sequence beginning")
 client = int(datafun.fetchdatabyid("channels.json", "client"))
