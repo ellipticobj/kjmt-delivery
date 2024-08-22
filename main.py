@@ -1,41 +1,49 @@
-import discord, datafun
+import discord, datafun, genfun, os
+from dotenv import load_dotenv
 import cogs.client as c 
 import cogs.manager as m
-
 
 # starting bot
 intents = discord.Intents.all()
 bot = discord.Bot(intents=intents)
-log = bot.get_channel(1271400775611846656)
-log.send("test message")
+
+@bot.event
+async def on_ready():
+    print("bot started!! :3")
+    log = bot.get_channel(1271400775611846656)
+    await log.send("test message")
 
 print("init sequence beginning")
+print("loading dotenv...")
+load_dotenv()
+print("fetching values...")
+__TOKEN = os.getenv("TOKEN")
+print("done.")
 client = int(datafun.fetchdatabyid("channels.json", "client"))
 manager = int(datafun.fetchdatabyid("channels.json", "manager"))
 settings = int(datafun.fetchdatabyid("channels.json", "dev"))
+loadedcogs = {}
 
 # loading cogs
 cogs_list = [
     'client',
     'manager'
-] 
+]
+
 
 for cog in cogs_list:
     try:
         print(f"attempting to load cogs.{cog}...")
         bot.load_extension(f'cogs.{cog}')
         print(f"loaded cogs.{cog}")
+        loadedcogs[cog] = "true"
     except Exception as e:
-        print(f"ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
-print("loaded all cogs")
-
+        genfun.errormes(e)
+        loadedcogs[cog] = "false"
+print(f"loadedcogs: {loadedcogs}")
+    
 async def comingsoon(ctx):
     await ctx.respond("coming soon!")
-    
-@bot.event
-async def on_ready():
-    print("bot is ready!! :3")
-    
 
 @bot.slash_command(name="test")
 async def test(ctx):
@@ -55,7 +63,7 @@ async def manager(ctx):
         bot.load_extension(f'cogs.manager')
         print("loaded cogs.manager")
     except Exception as e:
-        print(f"ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+        genfun.errormes(e)
     
 @load.command()
 async def client(ctx):
@@ -64,7 +72,7 @@ async def client(ctx):
         bot.load_extension(f'cogs.client')
         ctx.response("loaded cogs.client")
     except Exception as e:
-        print(f"ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+        genfun.errormes(e)
     
 @unload.command()
 async def manager(ctx):
@@ -73,7 +81,7 @@ async def manager(ctx):
         bot.unload_extension(f'cogs.manager')
         ctx.response("unloaded cogs.manager")
     except Exception as e:
-        print(f"ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+        genfun.errormes(e)
 
 @unload.command()
 async def client(ctx):
@@ -82,7 +90,7 @@ async def client(ctx):
         bot.unload_extension(f'cogs.client')
         ctx.response("unloaded cogs.client")
     except Exception as e:
-        print(f"ERROR??!?!?!?!?!??? output:\n{e}\nend of output... aw :(")
+        genfun.errormes(e)
 
 # starting the bot itself
 bot.run(datafun.fetchdatabyid("dat.json", "token"))
