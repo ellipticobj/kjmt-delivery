@@ -1,7 +1,7 @@
 import discord, datafun, genfun, os
 from dotenv import load_dotenv
 import cogs.client as c 
-import cogs.manager as m
+import cogs.menu as m
 
 # starting bot
 intents = discord.Intents.all()
@@ -18,11 +18,10 @@ print("loading dotenv...")
 load_dotenv()
 print("fetching values...")
 __TOKEN = os.getenv("TOKEN")
-print("done.")
-client = int(datafun.fetchdatabyid("channels.json", "client"))
-manager = int(datafun.fetchdatabyid("channels.json", "manager"))
-settings = int(datafun.fetchdatabyid("channels.json", "dev"))
-loadedcogs = {}
+client = os.getenv("CLIENT")
+manager = os.getenv("MANAGER")
+settings = os.getenv("DEV")
+print("done")
 
 # loading cogs
 cogs_list = [
@@ -30,7 +29,8 @@ cogs_list = [
     'manager'
 ]
 
-
+loadedcogs = {}
+print(f"attempting to load cogs...")
 for cog in cogs_list:
     try:
         print(f"attempting to load cogs.{cog}...")
