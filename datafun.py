@@ -2,6 +2,11 @@ import json, os, genfun
 
 debug = False
 
+'''
+this is deprecated
+'''
+
+
 def fetchdata(filepath: str):
     '''
     made to read data from dat.json, potentially more uses in the future

@@ -1,2 +1,2 @@
 def errormes(e):
-    print(f"error:\n{e}\neof aw... :(")
+    print(f"error:\n{e}\nend. aw... :(")

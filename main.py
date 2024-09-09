@@ -5,7 +5,7 @@ import cogs.menu as m
 
 # starting bot
 intents = discord.Intents.all()
-bot = discord.Bot(intents=intents)
+bot = discord.Bot(intents=intents, debug_guilds=[1270760868321431622])
 
 @bot.event
 async def on_ready():
@@ -53,44 +53,41 @@ async def test(ctx):
 async def order(ctx):
     comingsoon()
     
-load = discord.SlashCommandGroup("load", "admin command for loading cogs")
-unload = load.create_subgroup("unload", "admin command for unloading cogs")
+loadcog = discord.SlashCommandGroup("loadcog", "admin command for loading cogs")
+unloadcog = discord.SlashCommandGroup("unloadcog", "admin command for unloading cogs")
 
-@load.command()
+@loadcog.command()
 async def manager(ctx):
-    try:
-        print("attempting to load cogs.manager...")
-        bot.load_extension(f'cogs.manager')
-        print("loaded cogs.manager")
-    except Exception as e:
-        genfun.errormes(e)
+    bot.load_extension('cogs.manager')
     
-@load.command()
-async def client(ctx):
-    try:
-        ctx.response("attempting to load cogs.client...")
-        bot.load_extension(f'cogs.client')
-        ctx.response("loaded cogs.client")
-    except Exception as e:
-        genfun.errormes(e)
+# @loadcog.command()
+# async def client(ctx):
+#     try:
+#         print("attempting to load cogs.client...")
+#         bot.load_extension(f'cogs.client')
+#         print("loaded cogs.client")
+#     except Exception as e:
+#         genfun.errormes(e)
     
-@unload.command()
-async def manager(ctx):
-    try:
-        ctx.response("attempting to unload cogs.manager...")
-        bot.unload_extension(f'cogs.manager')
-        ctx.response("unloaded cogs.manager")
-    except Exception as e:
-        genfun.errormes(e)
+# @unloadcog.command()
+# async def manager(ctx):
+#     try:
+#         print("attempting to unload cogs.manager...")
+#         bot.unload_extension(f'cogs.manager')
+#         print("unloaded cogs.manager")
+#     except Exception as e:
+#         genfun.errormes(e)
 
-@unload.command()
-async def client(ctx):
-    try:
-        ctx.response("attempting to unload cogs.client...")
-        bot.unload_extension(f'cogs.client')
-        ctx.response("unloaded cogs.client")
-    except Exception as e:
-        genfun.errormes(e)
+# @unloadcog.command()
+# async def client(ctx):
+#     try:
+#         print("attempting to unload cogs.client...")
+#         bot.unload_extension(f'cogs.client')
+#         print("unloaded cogs.client")
+#     except Exception as e:
+#         genfun.errormes(e)
 
 # starting the bot itself
-bot.run(datafun.fetchdatabyid("dat.json", "token"))
+bot.add_application_command(loadcog)
+bot.add_application_command(unloadcog)
+bot.run(__TOKEN)
