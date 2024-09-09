@@ -11,7 +11,7 @@ bot = discord.Bot(intents=intents)
 async def on_ready():
     print("bot started!! :3")
     log = bot.get_channel(1271400775611846656)
-    await log.send("test message")
+    await log.send("bot")
 
 print("init sequence beginning")
 print("loading dotenv...")
@@ -41,9 +41,6 @@ for cog in cogs_list:
         genfun.errormes(e)
         loadedcogs[cog] = "false"
 print(f"loadedcogs: {loadedcogs}")
-    
-async def comingsoon(ctx):
-    await ctx.respond("coming soon!")
 
 @bot.slash_command(name="test")
 async def test(ctx):
@@ -51,46 +48,52 @@ async def test(ctx):
 
 @bot.slash_command(name="order")
 async def order(ctx):
-    comingsoon()
+    await ctx.respond("coming soon!")
     
-load = discord.SlashCommandGroup("load", "admin command for loading cogs")
-unload = load.create_subgroup("unload", "admin command for unloading cogs")
+@bot.slash_command(name="load")
+async def load(ctx):
+    await ctx.respond("is the subgroup working?")
+    
+# load = discord.SlashCommandGroup("load", "admin command for loading cogs")
+# unload = load.create_subgroup("unload", "admin command for unloading cogs")
 
-@load.command()
-async def manager(ctx):
-    try:
-        print("attempting to load cogs.manager...")
-        bot.load_extension(f'cogs.manager')
-        print("loaded cogs.manager")
-    except Exception as e:
-        genfun.errormes(e)
+# @load.command(name="manager")
+# async def manager(ctx):
+#     try:
+#         print("attempting to load cogs.manager...")
+#         bot.load_extension(f'cogs.manager')
+#         print("loaded cogs.manager")
+#     except Exception as e:
+#         genfun.errormes(e)
     
-@load.command()
-async def client(ctx):
-    try:
-        ctx.response("attempting to load cogs.client...")
-        bot.load_extension(f'cogs.client')
-        ctx.response("loaded cogs.client")
-    except Exception as e:
-        genfun.errormes(e)
+# @load.command(name="client")
+# async def client(ctx):
+#     try:
+#         ctx.response("attempting to load cogs.client...")
+#         bot.load_extension(f'cogs.client')
+#         ctx.response("loaded cogs.client")
+#     except Exception as e:
+#         genfun.errormes(e)
     
-@unload.command()
-async def manager(ctx):
-    try:
-        ctx.response("attempting to unload cogs.manager...")
-        bot.unload_extension(f'cogs.manager')
-        ctx.response("unloaded cogs.manager")
-    except Exception as e:
-        genfun.errormes(e)
+# @unload.command(name="manager")
+# async def manager(ctx):
+#     try:
+#         ctx.response("attempting to unload cogs.manager...")
+#         bot.unload_extension(f'cogs.manager')
+#         ctx.response("unloaded cogs.manager")
+#     except Exception as e:
+#         genfun.errormes(e)
 
-@unload.command()
-async def client(ctx):
-    try:
-        ctx.response("attempting to unload cogs.client...")
-        bot.unload_extension(f'cogs.client')
-        ctx.response("unloaded cogs.client")
-    except Exception as e:
-        genfun.errormes(e)
+# @unload.command(name="client")
+# async def client(ctx):
+#     try:
+#         ctx.response("attempting to unload cogs.client...")
+#         bot.unload_extension(f'cogs.client')
+#         ctx.response("unloaded cogs.client")
+#     except Exception as e:
+#         genfun.errormes(e)
 
 # starting the bot itself
-bot.run(datafun.fetchdatabyid("dat.json", "token"))
+# bot.add_application_command(load)
+# bot.add_application_command(unload)
+bot.run(__TOKEN)
