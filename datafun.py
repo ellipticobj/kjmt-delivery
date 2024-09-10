@@ -3,14 +3,10 @@ import json, os, genfun
 debug = False
 
 '''
-this is deprecated
+this is NO LONGER deprecated!!!
 '''
 
-
-def fetchdata(filepath: str) -> str:
-    '''
-    made to read data from dat.json, potentially more uses in the future
-    '''
+def __fetchdata(filepath: str) -> dict[str, str]:
     try:
         with open(filepath, 'r') as file:
             data = json.load(file)
@@ -19,7 +15,7 @@ def fetchdata(filepath: str) -> str:
         return data
     except Exception as e:
         genfun.errormes(e)
-        return ""
+        return {"": ""}
 
 def fetchdatabyid(filepath: str, id: str) -> str:
     '''
@@ -35,54 +31,16 @@ def fetchdatabyid(filepath: str, id: str) -> str:
         genfun.errormes(e)
         return ""
 
-def dumpdata(filepath: str, data):
-    '''
-    made to allow users to change things like the client channel id or manager channel id, potentially more uses in the future
-    '''
-    try:
-        with open(filepath, 'w') as file:
-            json.dump(data, file, indent=4)
-        if debug: print(f"data dumped to file\ndata: {data}\nfile: ./{filepath}")
-        else: print(f"data dumped to {file}")
-        return 0
-    except Exception as e:
-        genfun.errormes(e)
-        return 0
-
-def updateclientid(filepath, updatedclientid):
-    '''
-    allows users to update their client channel id
-    '''
-    try:
-        data = fetchdata(filepath)
-        data["client"] = updatedclientid # type: ignore
-        return dumpdata(filepath, data)
-    except Exception as e:
-        genfun.errormes(e)
-        return 0
-
-def updatemanagerid(filepath: str, updatedmanagerid):
-    '''
-    allows users to update their manager channel id
-    '''
-    try:
-        data = fetchdata(filepath)
-        data["manager"] = updatedmanagerid # type: ignore
-        return dumpdata(filepath, data)
-    except Exception as e:
-        genfun.errormes(e)
-        return 0
-
 def moddatabyid(filepath: str, dataid, newd):
     '''
     allows user to modify data by its identifier, here just in case
     might change other dump functions to this
     '''
     
-    data = fetchdata(filepath)
+    data = __fetchdata(filepath)
     try:
         oldd = data[dataid]
-        data[dataid] = newd # type: ignore
+        data[dataid] = newd
     except Exception as e:
         genfun.errormes(e)
         return 0
