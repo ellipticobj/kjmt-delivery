@@ -10,8 +10,6 @@ bot = discord.Bot(intents=intents, debug_guilds=[1270760868321431622])
 @bot.event
 async def on_ready():
     print("bot started!! :3")
-    log = bot.get_channel(1271400775611846656)
-    await log.send("test message")
 
 print("init sequence beginning")
 print("loading dotenv...")

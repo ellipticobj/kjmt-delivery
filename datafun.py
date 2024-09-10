@@ -7,7 +7,7 @@ this is deprecated
 '''
 
 
-def fetchdata(filepath: str):
+def fetchdata(filepath: str) -> str:
     '''
     made to read data from dat.json, potentially more uses in the future
     '''
@@ -19,9 +19,9 @@ def fetchdata(filepath: str):
         return data
     except Exception as e:
         genfun.errormes(e)
-        return 0
+        return ""
 
-def fetchdatabyid(filepath: str, id: str):
+def fetchdatabyid(filepath: str, id: str) -> str:
     '''
     made to read data from dat.json, potentially more uses in the future
     '''
@@ -33,7 +33,7 @@ def fetchdatabyid(filepath: str, id: str):
         return data[id]
     except Exception as e:
         genfun.errormes(e)
-        return 0
+        return ""
 
 def dumpdata(filepath: str, data):
     '''
@@ -55,7 +55,7 @@ def updateclientid(filepath, updatedclientid):
     '''
     try:
         data = fetchdata(filepath)
-        data["client"] = updatedclientid
+        data["client"] = updatedclientid # type: ignore
         return dumpdata(filepath, data)
     except Exception as e:
         genfun.errormes(e)
@@ -67,7 +67,7 @@ def updatemanagerid(filepath: str, updatedmanagerid):
     '''
     try:
         data = fetchdata(filepath)
-        data["manager"] = updatedmanagerid
+        data["manager"] = updatedmanagerid # type: ignore
         return dumpdata(filepath, data)
     except Exception as e:
         genfun.errormes(e)
@@ -82,7 +82,7 @@ def moddatabyid(filepath: str, dataid, newd):
     data = fetchdata(filepath)
     try:
         oldd = data[dataid]
-        data[dataid] = newd
+        data[dataid] = newd # type: ignore
     except Exception as e:
         genfun.errormes(e)
         return 0
