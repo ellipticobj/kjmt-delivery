@@ -1,0 +1,17 @@
+import main, os
+from discord.ext import commands
+from dotenv import load_dotenv
+
+load_dotenv()
+print("fetching values...")
+MANAGER = os.getenv("MANAGER")
+CLIENT = os.getenv("CLIENT")
+print("done.")
+
+class Order(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+    
+        
+def setup(bot):
+    bot.add_cog(Order(bot))

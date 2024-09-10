@@ -1,6 +1,6 @@
 import discord, datafun, genfun, os
 from dotenv import load_dotenv
-import cogs.client as c 
+import cogs.order as c 
 import cogs.menu as m
 
 # starting bot
@@ -16,9 +16,9 @@ print("loading dotenv...")
 load_dotenv()
 print("fetching values...")
 __TOKEN = os.getenv("TOKEN")
-client = os.getenv("CLIENT")
-manager = os.getenv("MANAGER")
-settings = os.getenv("DEV")
+CLIENT = os.getenv("CLIENT")
+MANAGER = os.getenv("MANAGER")
+SETTINGS = os.getenv("DEV")
 print("done")
 
 # loading cogs
@@ -49,41 +49,55 @@ async def test(ctx):
 
 @bot.slash_command(name="order")
 async def order(ctx):
-    comingsoon()
+    await comingsoon(ctx)
     
 loadcog = discord.SlashCommandGroup("loadcog", "admin command for loading cogs")
 unloadcog = discord.SlashCommandGroup("unloadcog", "admin command for unloading cogs")
 
-@loadcog.command()
-async def manager(ctx):
-    bot.load_extension('cogs.manager')
-    
-# @loadcog.command()
-# async def client(ctx):
-#     try:
-#         print("attempting to load cogs.client...")
-#         bot.load_extension(f'cogs.client')
-#         print("loaded cogs.client")
-#     except Exception as e:
-#         genfun.errormes(e)
-    
-# @unloadcog.command()
-# async def manager(ctx):
-#     try:
-#         print("attempting to unload cogs.manager...")
-#         bot.unload_extension(f'cogs.manager')
-#         print("unloaded cogs.manager")
-#     except Exception as e:
-#         genfun.errormes(e)
+@loadcog.command(name="manager")
+async def loadmanager(ctx):
+    if not loadedcogs["manager"] == 'false':
+        try:
+            bot.load_extension('cogs.manager')
+            await ctx.respond("cogs.manager loaded successfully")
+            loadedcogs["manager"] = True
+        except Exception as e:
+            await ctx.respond("cogs.manager failed to load :(")
+            await ctx.respond(f"error: {e}", ephemeral=True)
+    else:
+        await ctx.respond("cogs.manager is already loaded")
 
-# @unloadcog.command()
-# async def client(ctx):
-#     try:
-#         print("attempting to unload cogs.client...")
-#         bot.unload_extension(f'cogs.client')
-#         print("unloaded cogs.client")
-#     except Exception as e:
-#         genfun.errormes(e)
+@loadcog.command(name="client")
+async def loadclient(ctx):
+    if loadedcogs["client"] == 'false':
+        try:
+            bot.load_extension('cogs.client')
+            await ctx.respond("cogs.client loaded successfully")
+        except Exception as e:
+            await ctx.respond("cogs.client failed to load :(")
+            await ctx.respond(f"error: {e}", ephemeral=True)
+    else:
+        await ctx.respond("cogs.client is already loaded")
+    
+@unloadcog.command(name="manager")
+async def unloadmanager(ctx):
+    try:
+        print("attempting to unload cogs.manager...")
+        bot.unload_extension(f'cogs.manager')
+        print("unloaded cogs.manager")
+    except Exception as e:
+        await ctx.respond("cogs.manager couldnt unload :(")
+        await ctx.respond(f"error: {e}", ephemeral=True)
+
+@unloadcog.command(name="client")
+async def unloadclient(ctx):
+    try:
+        await ctx.respond("attempting to unload cogs.client...", ephemeral=True)
+        bot.unload_extension(f'cogs.client')
+        await ctx.respond("unloaded cogs.client")
+    except Exception as e:
+        await ctx.respond("cogs.client couldnt unload :(")
+        await ctx.respond(f"error: {e}", ephemeral=True)
 
 # starting the bot itself
 bot.add_application_command(loadcog)
