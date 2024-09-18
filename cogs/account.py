@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 class Account(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        
+    
+    global defaultvals
     defaultvals = {
             "username": "Anon",
             "displayname": "Anon",
@@ -21,9 +22,12 @@ class Account(commands.Cog):
         
     account = discord.SlashCommandGroup("account", "commands related to accounts")
     
-    @account.command(name="create", username="Anon", displayname="Anon")
-    async def createacc(self, ctx):
-        await ctx.response(f"Account creation in progress...")
+    @account.command(name="create")
+    async def createacc(self, ctx, password, username="Anon", displayname="Anon"):
+        uservals = defaultvals
+        uservals["username"] = username
+        uservals["displayname"] = displayname
+        uservals["password"] = hash(password)
         
         
 

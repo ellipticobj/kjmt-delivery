@@ -18,7 +18,7 @@ class Order(commands.Cog):
     
     @order.command(name="start")
     async def startorder(self, ctx):
-        orderid = int(datafun.fetchdata(PATH))+1
+        orderid = int(datafun.loaddata(PATH))+1
         await ctx.respond(f"order id: {orderid}")
     
         
