@@ -12,7 +12,7 @@ class Admin(commands.Cog):
         self.bot = bot
     
     @commands.command(name="reloadmodule")
-    async def reloadmodule(self, ctx, module: discord.Option(str, choices=modulelist)):
+    async def reloadmodule(self, ctx, module: discord.Option(str, choices=modulelist)): # type: ignore
         try:
             importlib.reload(module)
             await ctx.send(f"{module} reloaded")
@@ -44,7 +44,7 @@ class Admin(commands.Cog):
         logger.info(f"loading modules...done") 
 
     @commands.command(name='reloadcog')
-    async def reload_cog(self, ctx, cog: discord.Option(str, choices=coglist)):
+    async def reload_cog(self, ctx, cog: discord.Option(str, choices=coglist)): # type: ignore
         try:
             self.bot.reload_extension(f'cogs.{cog}')
             await ctx.send(f"Reloaded {cog} cog.")

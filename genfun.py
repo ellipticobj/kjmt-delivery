@@ -1,4 +1,4 @@
-import datafun, profanity_check, re, logging, discord
+import profanity_check, re, logging, discord, importlib, sys
 from typing import Tuple
 
 logger = logging.getLogger("logs")
@@ -31,3 +31,24 @@ def loadcogs(coglist: list[str], client: discord.Bot) -> dict[str,str]:
             loadedcogs[cog] = "false"
     logger.info(f"loading cogs...done")   
     return loadedcogs
+
+def loadmodules(modulelist: list) -> dict[str,str]:
+    modules = modulelist
+    loadedmodules = {}
+    logger.info(f"loading modules...")
+    for module in modules:
+        if module in ('__main__', "builtins") or module.startswith("_"):
+            continue
+
+        try:
+            logger.info(f"    loading {module}...")
+            importlib.reload(sys.modules[module])
+            logger.info(f"loaded {module}")
+            loadedmodules[module] = "true"
+            logger.info(f"    loading {module}...done")
+        except Exception as e:
+            logger.warning(f" loading {module}...failed")
+            logger.warning(f"error: {e}")
+            loadedmodules[module] = "false"
+    logger.info(f"loading modules...done") 
+    return loadedmodules

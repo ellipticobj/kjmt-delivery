@@ -1,4 +1,5 @@
-import discord, os, logging, inspect
+import discord, os, logging, inspect, importlib
+import datafun, genfun
 from datafun import *
 from genfun import *
 from dotenv import load_dotenv
@@ -37,19 +38,22 @@ coglist = [
     'admin'
 ]
 
-modulelist = [name for name, obj in inspect.getmembers(genfun, inspect.isfunction)]
+modulelist = [name for name, _ in inspect.getmembers(genfun, inspect.isfunction)] 
+modulelist += [name for name, _ in inspect.getmembers(datafun, inspect.isfunction)]
 
-loadedcogs = genfun.loadcogs(coglist, client)
+for module in modulelist:
+    importlib.import_module(module)
+
+loadedcogs = loadcogs(coglist, client)
 logger.info(f"loaded cogs: {loadedcogs}")
+
+loadedmodules = loadmodules(modulelist)
+logger.info(f"loaded modules: {loadedmodules}")
 
 @client.event
 async def on_ready():
+    logger.info(f"signed in as {client.user}")
     logger.info("bot started!! :3")
-
-@client.slash_command(name="test")
-async def test(ctx):
-    await ctx.respond("bot is working!")
-    
 
 
 # starting the bot itself
