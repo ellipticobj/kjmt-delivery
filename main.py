@@ -1,7 +1,7 @@
-import discord, datafun, genfun, os, logging
+import discord, os, logging, inspect
+from datafun import *
+from genfun import *
 from dotenv import load_dotenv
-import cogs.order as c 
-import cogs.menu as m
 
 logger = logging.getLogger("logs")
 logger.setLevel(logging.INFO)
@@ -17,11 +17,7 @@ logger.addHandler(filehandler)
 
 # starting bot
 intents = discord.Intents.all()
-bot = discord.Bot(intents=intents, debug_guilds=[1270760868321431622])
-
-@bot.event
-async def on_ready():
-    logger.info("bot started!! :3")
+client = discord.Bot(intents=intents, debug_guilds=[1270760868321431622])
 
 logger.info("init sequence beginning")
 logger.info("loading dotenv...")
@@ -34,31 +30,27 @@ MANAGER = os.getenv("MANAGER")
 logger.info("fetching values...done")
 
 # loading cogs
-cogs_list = [
+coglist = [
     'account',
     'menu',
     'order',
     'admin'
 ]
 
-loadedcogs = {}
-logger.info(f"attempting to load cogs...")
-for cog in cogs_list:
-    try:
-        logger.info(f"attempting to load cogs.{cog}...")
-        bot.load_extension(f'cogs.{cog}')
-        logger.info(f"loaded cogs.{cog}")
-        loadedcogs[cog] = "true"
-    except Exception as e:
-        genfun.errormes(e)
-        loadedcogs[cog] = "false"
-logger.info(f"loadedcogs: {loadedcogs}")
+modulelist = [name for name, obj in inspect.getmembers(genfun, inspect.isfunction)]
 
-@bot.slash_command(name="test")
+loadedcogs = genfun.loadcogs(coglist, client)
+logger.info(f"loaded cogs: {loadedcogs}")
+
+@client.event
+async def on_ready():
+    logger.info("bot started!! :3")
+
+@client.slash_command(name="test")
 async def test(ctx):
     await ctx.respond("bot is working!")
     
 
 
 # starting the bot itself
-bot.run(__TOKEN)
+client.run(__TOKEN)
