@@ -1,7 +1,7 @@
 import discord, os, logging, inspect, importlib
-import datafun, genfun
+import datafun, utils
 from datafun import *
-from genfun import *
+from utils import *
 from dotenv import load_dotenv
 
 logger = logging.getLogger("logs")
@@ -32,13 +32,10 @@ logger.info("fetching values...done")
 
 # loading cogs
 coglist = [
-    'account',
-    'menu',
-    'order',
-    'admin'
+    
 ]
 
-modulelist = [name for name, _ in inspect.getmembers(genfun, inspect.isfunction)] 
+modulelist = [name for name, _ in inspect.getmembers(utils, inspect.isfunction)] 
 modulelist += [name for name, _ in inspect.getmembers(datafun, inspect.isfunction)]
 
 for module in modulelist:

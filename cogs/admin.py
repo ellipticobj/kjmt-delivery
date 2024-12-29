@@ -10,6 +10,15 @@ logger = logging.getLogger("logs")
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        
+    @commands.command(name="displaymodules")
+    async def displaymodules(self, ctx):
+        try:
+            await ctx.send(f"These are the loaded modules: {modulelist}")
+        except Exception as e:
+            await ctx.send(f"Error: {e}")
+            logger.error("modules could not be displayed")
+            logger.error(e)
     
     @commands.command(name="reloadmodule")
     async def reloadmodule(self, ctx, module: discord.Option(str, choices=modulelist)): # type: ignore
@@ -51,6 +60,5 @@ class Admin(commands.Cog):
         except Exception as e:
             await ctx.send(f"Failed to reload {cog} cog: {e}")
 
-# Required setup function for cog loading
 def setup(bot):
     bot.add_cog(Admin(bot))

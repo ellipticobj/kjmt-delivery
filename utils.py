@@ -1,6 +1,13 @@
-import profanity_check, re, logging, discord, importlib, sys
-from typing import Tuple
+import profanity_check
+import re
+import logging
+import discord
+import importlib
+import sys
+import json
+from typing import *
 
+debug = False
 logger = logging.getLogger("logs")
 
 def usrnameisvalid(username: str) -> Tuple[bool, str]:
@@ -52,3 +59,30 @@ def loadmodules(modulelist: list) -> dict[str,str]:
             loadedmodules[module] = "false"
     logger.info(f"loading modules...done") 
     return loadedmodules
+
+def loaddata(filepath: str, dataid: str = "", findrecent = True) -> str:
+    with open(filepath,"r") as file:
+        data = json.load(file)
+    if findrecent:
+        return data[max(data.keys())]
+    else:
+        return data[dataid]
+
+def dumpdata(filepath, data):
+    '''
+    overwrites the entire json file with the new data
+    '''
+    with open(filepath, "w") as file:
+        json.dump(data, file, indent=4)
+
+def moddata(filepath: str, dataid, newdata):
+    '''
+    changes the data at dataid in the json file
+    '''
+    data = loaddata(filepath)
+    data[dataid] = newdata
+    dumpdata(filepath, newdata)
+
+def loadfile(file: str):
+    with open(file,"r") as file:
+        data = json.load(file)

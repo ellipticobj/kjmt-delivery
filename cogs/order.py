@@ -7,8 +7,7 @@ print("fetching values...")
 MANAGER = os.getenv("MANAGER")
 CLIENT = os.getenv("CLIENT")
 print("done.")
-PATH = "./appdata/order/"
-USERDATAPATH = "./appdata/user"
+PATH = "./appdata/orders.json"
 
 class Order(commands.Cog):
     def __init__(self, bot):
@@ -18,8 +17,7 @@ class Order(commands.Cog):
     
     @order.command(name="start")
     async def startorder(self, ctx):
-        orderid = int(datafun.loaddata(PATH))+1
-        await ctx.respond(f"order id: {orderid}")
+        return 0
     
         
 def setup(bot):
