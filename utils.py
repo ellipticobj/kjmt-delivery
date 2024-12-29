@@ -5,11 +5,41 @@ import discord
 import importlib
 import sys
 import json
+import string
+import random
 from typing import *
 
 debug = False
 logger = logging.getLogger("logs")
 
+# file
+def loadfile(file: str):
+    with open(file,"r") as file:
+        return json.load(file)
+        
+def loadid(file, id):
+    data = loadfile(file)
+    return data[id]
+
+def loadrecent(file):
+    # TODO: find a way load the most recent
+    return 0
+
+def dumpfile(file, data):
+    with open(file, "w") as file:
+        json.dump(data, file, indent=4)
+
+def dumpid(file, id, data):
+    dat = loadfile(file, id)
+    dat[id] = data
+    dumpfile(file, dat)
+        
+def moddata(file, id, data):
+    cont = loadid(file, id)
+    cont[id] = data
+    dumpfile(file, cont)
+
+# app
 def usrnameisvalid(username: str) -> Tuple[bool, str]:
     '''
     checks for validity of username
@@ -39,23 +69,12 @@ def loadcogs(coglist: list[str], client: discord.Bot) -> dict[str,str]:
     logger.info(f"loading cogs...done")   
     return loadedcogs
 
-def loaddata(filepath: str, dataid: str = "", findrecent = True) -> str:
-    with open(filepath,"r") as file:
-        data = json.load(file)
-    if findrecent:
-        return data[max(data.keys())]
-    else:
-        return data[dataid]
-
-def dumpdata(filepath, data):
-    with open(filepath, "w") as file:
-        json.dump(data, file, indent=4)
-
-def moddata(filepath: str, dataid, newdata):
-    data = loaddata(filepath)
-    data[dataid] = newdata
-    dumpdata(filepath, newdata)
-
-def loadfile(file: str):
-    with open(file,"r") as file:
-        data = json.load(file)
+def generateid(file, prefix=""):
+    chars = string.ascii_uppercase, string.digits
+    while True:
+        random_id = prefix + ''.join(random.choices(chars, k=6))
+        existing = loadid(file, "ids")
+        if random_id not in existing:
+            existing.add(random_id)
+            dumpid(file, "ids", existing)
+            return random_id
