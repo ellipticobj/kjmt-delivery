@@ -39,27 +39,6 @@ def loadcogs(coglist: list[str], client: discord.Bot) -> dict[str,str]:
     logger.info(f"loading cogs...done")   
     return loadedcogs
 
-def loadmodules(modulelist: list) -> dict[str,str]:
-    modules = modulelist
-    loadedmodules = {}
-    logger.info(f"loading modules...")
-    for module in modules:
-        if module in ('__main__', "builtins") or module.startswith("_"):
-            continue
-
-        try:
-            logger.info(f"    loading {module}...")
-            importlib.reload(sys.modules[module])
-            logger.info(f"loaded {module}")
-            loadedmodules[module] = "true"
-            logger.info(f"    loading {module}...done")
-        except Exception as e:
-            logger.warning(f" loading {module}...failed")
-            logger.warning(f"error: {e}")
-            loadedmodules[module] = "false"
-    logger.info(f"loading modules...done") 
-    return loadedmodules
-
 def loaddata(filepath: str, dataid: str = "", findrecent = True) -> str:
     with open(filepath,"r") as file:
         data = json.load(file)
@@ -69,16 +48,10 @@ def loaddata(filepath: str, dataid: str = "", findrecent = True) -> str:
         return data[dataid]
 
 def dumpdata(filepath, data):
-    '''
-    overwrites the entire json file with the new data
-    '''
     with open(filepath, "w") as file:
         json.dump(data, file, indent=4)
 
 def moddata(filepath: str, dataid, newdata):
-    '''
-    changes the data at dataid in the json file
-    '''
     data = loaddata(filepath)
     data[dataid] = newdata
     dumpdata(filepath, newdata)

@@ -1,6 +1,4 @@
 import discord, os, logging, inspect, importlib
-import datafun, utils
-from datafun import *
 from utils import *
 from dotenv import load_dotenv
 
@@ -35,17 +33,8 @@ coglist = [
     
 ]
 
-modulelist = [name for name, _ in inspect.getmembers(utils, inspect.isfunction)] 
-modulelist += [name for name, _ in inspect.getmembers(datafun, inspect.isfunction)]
-
-for module in modulelist:
-    importlib.import_module(module)
-
 loadedcogs = loadcogs(coglist, client)
 logger.info(f"loaded cogs: {loadedcogs}")
-
-loadedmodules = loadmodules(modulelist)
-logger.info(f"loaded modules: {loadedmodules}")
 
 @client.event
 async def on_ready():

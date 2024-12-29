@@ -1,4 +1,4 @@
-import main, os, discord, datafun
+import main, os, discord, utils
 from discord.ext import commands
 from dotenv import load_dotenv
 

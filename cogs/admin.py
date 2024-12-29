@@ -10,26 +10,6 @@ logger = logging.getLogger("logs")
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        
-    @commands.command(name="displaymodules")
-    async def displaymodules(self, ctx):
-        try:
-            await ctx.send(f"These are the loaded modules: {modulelist}")
-        except Exception as e:
-            await ctx.send(f"Error: {e}")
-            logger.error("modules could not be displayed")
-            logger.error(e)
-    
-    @commands.command(name="reloadmodule")
-    async def reloadmodule(self, ctx, module: discord.Option(str, choices=modulelist)): # type: ignore
-        try:
-            importlib.reload(module)
-            await ctx.send(f"{module} reloaded")
-            logger.info("reloaded main event handlers")
-        except Exception as e:
-            await ctx.send(f"Error reloading: {e}")
-            logger.error("event handlers could not be reloaded")
-            logger.error(e)
             
     @commands.command(name="reloadallmodules")
     async def reloadallmodules(self, ctx):
